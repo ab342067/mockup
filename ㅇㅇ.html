@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>iPhone 15 목업</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;margin:0;background:#0b0b0d;overflow:hidden;font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;-webkit-user-select:none;user-select:none}
+#stage{height:100%;display:flex;align-items:center;justify-content:center}
+#phone{--sb:#fff;--wp:radial-gradient(ellipse at 90% 46%,#58575b 0,#6b696b 24%,rgba(107,105,107,0) 48%),linear-gradient(#d9d3c4,#a89c86);width:393px;height:852px;flex:none;position:relative;border-radius:55px;box-shadow:0 0 0 10px #2a2a2e,0 0 0 12px #555;overflow:hidden;background:#000}
+#home{position:absolute;inset:0;background:var(--wp)}
+#sb{position:absolute;top:0;left:0;right:0;height:54px;z-index:50;display:flex;justify-content:space-between;padding:18px 31px 0 32px;font-size:17px;font-weight:600;color:var(--sb);pointer-events:none}
+#di{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;border-radius:20px;background:#000;z-index:60;transition:width .4s cubic-bezier(.3,1.3,.5,1),height .4s cubic-bezier(.3,1.3,.5,1),top .4s,border-radius .4s}
+#bar{position:absolute;bottom:8px;left:126px;width:140px;height:5px;border-radius:3px;background:var(--sb);z-index:60;cursor:pointer}
+.grid{position:absolute;top:82px;left:0;right:0;display:grid;grid-template-columns:repeat(4,65px);justify-content:center;column-gap:27px;row-gap:16px}
+.ic{display:flex;flex-direction:column;align-items:center;gap:6px;width:65px;color:#fff;font-size:12px;line-height:14px;font-weight:400;text-shadow:none;cursor:pointer}.ic span{white-space:nowrap}
+.ic i svg[width="60"]{width:100%;height:100%}.ic i svg[width="34"]{width:44px;height:44px}
+.ic i{overflow:hidden;width:65px;height:65px;border-radius:23%;corner-shape:squircle;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:36px}
+.dock{position:absolute;bottom:28px;left:14px;right:14px;height:98px;border-radius:38px;background:rgba(255,255,255,.25);backdrop-filter:blur(20px);display:flex;justify-content:space-around;align-items:center}
+.fold i{background:rgba(255,255,255,.3);display:grid!important;grid-template-columns:1fr 1fr;gap:5px;padding:7px;box-sizing:border-box}
+.fold b{border-radius:5px;display:block}
+.app{position:absolute;inset:0;background:#fff;z-index:40;transform:scale(.15);opacity:0;border-radius:40px;overflow:hidden;transition:transform .35s cubic-bezier(.3,.8,.3,1),opacity .25s;display:flex;flex-direction:column;color:#111;perspective:1300px}
+.app.open{transform:none;opacity:1;border-radius:0}
+.top{padding:58px 18px 8px;font-size:28px;font-weight:700}
+.scr{flex:1;overflow-y:auto}
+.row{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid #eee}
+.av{width:46px;height:46px;border-radius:17px;background:#cfd6e4;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+.tabs{display:flex;justify-content:space-around;padding:10px 0 30px;border-top:1px solid #ddd;font-size:12px;background:#f8f8f8}
+.tabs div{text-align:center;cursor:pointer;color:#888}.tabs .on{color:#111;font-weight:700}
+.bub{max-width:230px;padding:8px 12px;border-radius:14px;font-size:15px;line-height:1.35;margin:4px 12px}
+.me{background:#fee500;align-self:flex-end}.ot{background:#fff;align-self:flex-start}
+.card{margin:12px 16px;border-radius:14px;border:1px solid #e5e5e5;padding:14px;display:flex;gap:12px;align-items:center}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:17px;row-gap:10px;padding:8px 10px}
+.cal span{position:relative;height:34px;line-height:34px}
+.today b{background:#ff3b30;color:#fff;border-radius:50%;width:34px;height:34px;display:inline-block}
+.dot:after{content:"";position:absolute;left:50%;bottom:-2px;width:5px;height:5px;margin-left:-2px;border-radius:50%;background:#888}
+#toast{position:absolute;bottom:130px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:8px 16px;border-radius:16px;font-size:13px;opacity:0;transition:opacity .3s;z-index:70;pointer-events:none;white-space:nowrap}
+#di.wide{width:205px;height:52px;top:10px;border-radius:26px}
+#di svg{position:absolute;top:50%;opacity:0;transition:opacity .15s}#di.wide svg{opacity:1;transition:opacity .3s .2s}
+.li{left:17px;margin-top:-11px}.fi{right:12px;margin-top:-13px}
+#phone:not(.in) #bar,#phone:not(.in) #sb{display:none}
+#home{transform:scale(1.15);opacity:0;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s}#phone.in #home{transform:none;opacity:1}
+#lock{position:absolute;inset:0;z-index:45;background:var(--wp);color:#fff;touch-action:none;transition:transform .45s cubic-bezier(.2,.9,.3,1);font-family:-apple-system,'Apple SD Gothic Neo',sans-serif}
+#lock>*{position:absolute;text-shadow:0 0 12px rgba(0,0,0,.12)}
+.lt{top:104px;left:0;right:0;text-align:center;font-size:112px;font-weight:600;letter-spacing:-3px;line-height:1;font-family:'SF Pro Rounded',-apple-system,'Helvetica Neue',sans-serif}
+#ldate{top:79px;left:0;right:0;text-align:center;font-size:21px;font-weight:600}
+.lb{top:743px;width:59px;height:59px;border-radius:50%;background:rgba(15,12,10,.92);display:flex;align-items:center;justify-content:center}
+#lbar{top:840px;left:127px;width:140px;height:5px;border-radius:3px;background:#fff;cursor:pointer}
+.sbar{position:absolute;top:0;left:0;right:0;height:54px;display:flex;justify-content:space-between;align-items:flex-start;padding:18px 33px 0 32px;font-size:17px;font-weight:600;color:#fff}
+.rt{display:flex;align-items:center;gap:6px;height:20px}
+.batt{position:relative;width:26px;height:13px;border-radius:4px;background:rgba(255,255,255,.35);overflow:hidden;display:inline-block}.batt i{position:absolute;left:0;top:0;bottom:0;background:#fff}.batt b{position:absolute;inset:0;text-align:center;font-size:10px;line-height:13px;color:#222;font-weight:700}
+#pass{position:absolute;inset:0;z-index:44;background:#524c43;color:#fff}
+.pc{position:absolute;inset:0;opacity:var(--p,0);transition:opacity .3s}
+.pt{position:absolute;top:150px;left:0;right:0;text-align:center;font-size:21px;font-weight:500}
+.dots{position:absolute;top:197px;left:134px;display:flex;gap:24px}.dots i{width:13px;height:13px;border:1.5px solid #fff;border-radius:50%;box-sizing:border-box}.dots i.f{background:#fff}
+.shake{animation:shk .5s}@keyframes shk{0%,100%{transform:none}15%{transform:translateX(-13px)}30%{transform:translateX(12px)}45%{transform:translateX(-10px)}60%{transform:translateX(8px)}75%{transform:translateX(-4px)}90%{transform:translateX(2px)}}
+.keys{position:absolute;left:56px;top:293px;display:grid;grid-template-columns:repeat(3,78px);gap:18px 23px}
+.k{width:78px;height:78px;border-radius:50%;background:#a9a9a9;border:.5px solid #2b2926;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:36px;font-weight:300;line-height:1;transition:background .45s,color .45s;cursor:pointer}
+.k small{font-size:8px;font-weight:700;letter-spacing:2.5px;height:10px;margin-top:2px;line-height:10px}.k.on{background:#e9e9e9;color:#666;transition:none}
+.bl{position:absolute;top:771px;width:100px;margin-left:-50px;text-align:center;font-size:17px;cursor:pointer}
+@keyframes igfill{from{width:0}to{width:100%}}
+*{scrollbar-width:none;-ms-overflow-style:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;outline:none}*::-webkit-scrollbar{display:none;width:0;height:0}
+/* ===== 인스타 공통 기본 프로필 사진 ===== */
+.pf{background:#f3f5f8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='41' r='20' fill='%23868b95'/%3E%3Cellipse cx='50' cy='97' rx='36' ry='30' fill='%23868b95'/%3E%3C/svg%3E") center/cover;border-radius:50%;flex:none;box-sizing:border-box}
+/* ===== 전화앱 ===== */
+.phh{position:relative;height:113px;flex:none;box-sizing:border-box;border-bottom:1px solid #e3e3e6;background:#fff}
+.phb{position:absolute;top:59px;height:44px;border-radius:22px;background:#fff;border:1px solid #dcdce0;box-shadow:0 4px 12px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;box-sizing:border-box;cursor:default}
+.pr{position:relative;height:75px;box-sizing:border-box;padding:16px 16px 0}
+.pr:first-child{height:68px;padding-top:9px}
+.pr:after{content:"";position:absolute;left:76px;right:16px;bottom:0;height:1px;background:#dcdce0}
+.pcr{display:flex;align-items:center;height:45px}
+.pav{width:45px;height:45px;border-radius:50%;background:linear-gradient(#a9bbdc,#767cb5);color:#fff;font-size:20px;font-weight:600;letter-spacing:-1px;display:flex;align-items:center;justify-content:center;flex:none}
+.pcb{width:35px;height:35px;border-radius:50%;background:#f2f2f4;display:flex;align-items:center;justify-content:center;flex:none}
+.ptab{position:absolute;left:0;right:0;bottom:0;height:93px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-top:1px solid #e5e5e8}
+.pscr{scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.35) transparent}
+.pscr::-webkit-scrollbar{display:block;width:4px}
+.pscr::-webkit-scrollbar-thumb{background:rgba(0,0,0,.35);border-radius:2px}
+/* ===== 인스타 DM창 ===== */
+.nt{position:relative;width:108px;flex:none;margin-top:32px;text-align:center}
+.nb{position:absolute;left:50%;transform:translateX(-50%);z-index:2;background:#fff;border-radius:20px;box-shadow:0 2px 10px rgba(0,0,0,.14);padding:6px 10px;font-size:13px;line-height:17px;color:#737880;white-space:nowrap;text-align:left}
+.nb:before,.nb:after{content:"";position:absolute;background:#fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.nb:before{width:13px;height:13px;left:20px;bottom:-9px}.nb:after{width:6px;height:6px;left:14px;bottom:-16px}
+.nl{font-size:14px;color:#737880;margin-top:5px;line-height:19px}
+.dmr{display:flex;align-items:center;gap:12px;padding:8px 16px;height:72px;box-sizing:border-box;cursor:pointer}
+.dms{display:flex;font-size:15px;line-height:20px;color:#737880}.dms span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dms span+span{white-space:nowrap}
+</style></head><body>
+<div id="stage"><div id="phone">
+<div id="sb"><span class="clk"></span><span class="rt" data-r="2"></span></div><div id="di"><svg class="li" width="18" height="22" viewBox="0 0 18 22"><rect x="1" y="9" width="16" height="12" rx="3" fill="#d4d4d4"/><path d="M4.500 9V6a4.500 4.500 0 019 0v3" fill="none" stroke="#d4d4d4" stroke-width="2.600"/></svg><svg class="fi" width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#9fe6a4" stroke-width="2" stroke-linecap="round"><path d="M2 8V5a3 3 0 013-3h3M18 2h3a3 3 0 013 3v3M24 18v3a3 3 0 01-3 3h-3M8 24H5a3 3 0 01-3-3v-3"/><path d="M9 9v2M17 9v2M13 9v4.500h-1.500M9 17q4 3 8 0"/></svg></div><div id="bar" onclick="closeApp()"></div>
+<div id="home">
+ <div class="grid" id="grid"></div>
+ <div class="dock" id="dock"></div>
+</div>
+<div id="pass"><div class="sbar"><span class="clk"></span><span class="rt" data-r="2"></span></div><div class="pc"><div class="pt">암호 입력</div><div class="dots" id="dots"></div><div class="keys" id="keys"></div><div class="bl" style="left:95px">긴급 상황</div><div class="bl" style="left:298px" onclick="closePass()">취소</div></div></div>
+<div id="lock"><div class="sbar"><span>LG U+</span><span class="rt" data-r="1"></span></div><div id="ldate"></div><div class="lt clk"></div>
+<div style="left:33px;top:219px;font-size:17px;font-weight:700;line-height:22px">사랑한 지 ♡</div><div id="lcnt" style="left:33px;top:239px;font-size:25px;font-weight:600;line-height:28px;font-variant-numeric:tabular-nums"></div><div style="left:33px;top:262px;font-size:11.500px;line-height:14px;letter-spacing:.3px">DAY : HOUR : MIN : SEC</div>
+<div class="lb" style="left:46px"><svg width="22" height="30" viewBox="0 0 22 30" fill="#f5eee6"><path d="M4 0h14v6l-3 3v3H7V9L4 6z"/><rect x="7" y="13" width="8" height="17" rx="3"/></svg></div>
+<div style="top:762px;left:0;right:0;text-align:center;font-size:13px;font-weight:500">☾ 방해금지 모드</div>
+<div class="lb" style="left:289px"><svg width="30" height="24" viewBox="0 0 32 26"><path d="M4 5h5l2-3h10l2 3h5a3 3 0 013 3v13a3 3 0 01-3 3H4a3 3 0 01-3-3V8a3 3 0 013-3z" fill="#f5eee6"/><circle cx="16" cy="14.500" r="6" fill="#111"/><circle cx="16" cy="14.500" r="3.600" fill="#f5eee6"/></svg></div>
+<div id="lbar"></div></div>
+<div id="toast"></div>
+</div></div>
+<script>
+/* ===== 여기만 고치면 내용이 바뀝니다 ===== */
+const DATA={
+ /* 통화기록: [이름, out발신/in수신, 종류, 날짜, 부재중이면 1] */
+ calls:[["담임","in","휴대전화","2026. 10. 21."],["엄마","in","휴대전화","2026. 10. 20."],["곽상현","in","휴대전화","2026. 10. 19."],["담임","out","휴대전화","2026. 10. 18."],["곽상현","out","휴대전화","2026. 10. 17."],["엄마","in","휴대전화","2026. 10. 16."],["담임","in","휴대전화","2026. 10. 16."],["시우","out","전화번호","2026. 10. 14."],["곽상현","in","휴대전화","2026. 10. 13."],["엄마","in","휴대전화","2026. 10. 12.",1],["담임","out","휴대전화","2026. 10. 12."],["시우","out","전화번호","2026. 10. 11."],["시우","in","전화번호 (7)","2026. 10. 11.",1],["시우","in","전화번호 (5)","2026. 10. 11.",1],["시우","in","전화번호","2026. 10. 11."],["엄마","in","휴대전화","2026. 10. 9."],["시우","in","전화번호","2026. 10. 8."],["시우","in","전화번호","2026. 10. 8.",1],["시우","out","전화번호","2026. 10. 5."],["곽상현","out","휴대전화","2026. 10. 3."],["시우","out","전화번호","2026. 10. 3."],["시우","in","전화번호 (3)","2026. 10. 3.",1],["시우","out","전화번호","2026. 9. 30."],["시우","in","전화번호","2026. 9. 28."],["곽상현","in","휴대전화","2026. 9. 25."],["시우","out","전화번호","2026. 9. 22."]],
+ rooms:[ /* 채팅방 5개: name 이름, msgs 대화(me:true 내가 보낸 것) */
+  {name:"채팅방 1",msgs:[[0,"오늘 뭐해?"],[1,"집에서 쉬는 중"],[0,"저녁 먹을래?"],[1,"좋아 7시에 보자"]]},
+  {name:"채팅방 2",msgs:[[0,"사진 보냈어"],[1,"오 잘 나왔다"]]},
+  {name:"채팅방 3",msgs:[[1,"내일 몇 시에 만나?"],[0,"2시 어때"]]},
+  {name:"채팅방 4",msgs:[[0,"고마워!"],[1,"천만에"]]},
+  {name:"채팅방 5",msgs:[[0,"주말에 시간 돼?"],[1,"응 괜찮아"]]}],
+ gifts:[["☕","스타벅스","아메리카노 Tall","2026.12.31"],["🍰","투썸플레이스","케이크 교환권","2026.11.30"],["🍗","BHC","치킨 기프티콘","2027.01.15"]],
+ events:{"2026-10-25":"생일 파티","2026-10-31":"할로윈 약속","2026-10-22":"병원 예약"}
+};
+/* ======================================== */
+const $=s=>document.querySelector(s),phone=$('#phone');
+const TK=[...Array(60)].map((_,i)=>{const a=i*6*Math.PI/180,r1=i%5==0?17.5:19,r2=21;return `<line x1="${(30+Math.sin(a)*r1).toFixed(2)}" y1="${(30-Math.cos(a)*r1).toFixed(2)}" x2="${(30+Math.sin(a)*r2).toFixed(2)}" y2="${(30-Math.cos(a)*r2).toFixed(2)}"/>`}).join('');
+function calSvg(){const d=new Date();return SVH+`<text x="30" y="18.500" text-anchor="middle" font-family="-apple-system,'SF Pro Display',Helvetica,sans-serif" font-size="11.500" font-weight="600" fill="#111">${'일월화수목금토'[d.getDay()]}요일</text><text x="30" y="51" text-anchor="middle" font-family="-apple-system,'SF Pro Display',Helvetica,Arial,sans-serif" font-size="44" font-weight="300" fill="#111">${d.getDate()}</text></svg>`}
+function clockSvg(){const d=new Date(),s=d.getSeconds(),m=d.getMinutes()+s/60,h=d.getHours()%12+m/60;let t='';for(let i=0;i<60;i++){if(i%15==0)continue;const maj=i%5==0,a=i*6*Math.PI/180,r1=maj?23:26,r2=28;t+=`<line x1="${(30+Math.sin(a)*r1).toFixed(2)}" y1="${(30-Math.cos(a)*r1).toFixed(2)}" x2="${(30+Math.sin(a)*r2).toFixed(2)}" y2="${(30-Math.cos(a)*r2).toFixed(2)}" stroke="${maj?'#444':'#c2c2c4'}" stroke-width="${maj?1.6:.7}"/>`}const hd=(ang,l,w,c,tail)=>`<line x1="30" y1="${30+(tail||0)}" x2="30" y2="${30-l}" stroke="${c}" stroke-width="${w}" stroke-linecap="round" transform="rotate(${ang} 30 30)"/>`;return SVH+t+`<g font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="10" font-weight="600" fill="#333" text-anchor="middle"><text x="30" y="21">12</text><text x="43" y="34">3</text><text x="30" y="47.500">6</text><text x="17" y="34">9</text></g>`+hd(h*30,14,3.6,'#111')+hd(m*6,22,3.1,'#111')+hd(s*6,24,1.2,'#ff9500',6)+`<circle cx="30" cy="30" r="2.200" fill="#fff" stroke="#ff9500" stroke-width="1.200"/></svg>`}
+const PET=['#f6a23a','#c1d84a','#6fcd5b','#4ec7a0','#3d8ef2','#8b6fe0','#f2579b','#ee5456'].map((c,i)=>`<ellipse cx="30" cy="19" rx="7.500" ry="11" fill="${c}" opacity=".88" style="mix-blend-mode:multiply" transform="rotate(${i*45} 30 30)"/>`).join('');
+const GEAR='<circle cx="30" cy="30" r="16.500" fill="#ececee"/>'+[...Array(12)].map((_,i)=>`<rect x="-2.600" y="-23" width="5.200" height="8" rx="1.600" fill="#ececee" transform="translate(30 30) rotate(${i*30})"/>`).join('')+'<circle cx="30" cy="30" r="12" fill="#85858a"/><circle cx="30" cy="30" r="9.500" fill="#dcdce0"/>'+[60,180,300].map(a=>`<line x1="30" y1="30" x2="30" y2="13.500" stroke="#fff" stroke-opacity=".88" stroke-width="3.600" stroke-linecap="round" transform="rotate(${a} 30 30)"/>`).join('');
+const MEMO='<rect width="60" height="15" fill="#fcd43f"/>'+[...Array(14)].map((_,i)=>`<circle cx="${(4+i*3.85).toFixed(2)}" cy="17.500" r=".9" fill="#c9c9cc"/>`).join('')+'<line x1="8" y1="29" x2="52" y2="29" stroke="#c8c8ca" stroke-width="2.400" stroke-linecap="round"/><line x1="8" y1="42" x2="52" y2="42" stroke="#c8c8ca" stroke-width="2.400" stroke-linecap="round"/>';
+const SVH='<svg width="60" height="60" viewBox="0 0 60 60" style="display:block">';
+const SV={
+ phone:SVH+'<defs><linearGradient id="gp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#dff5dc"/></linearGradient></defs><path transform="translate(12 12) scale(1.5)" fill="url(#gp)" d="M6.600 10.800c1.400 2.800 3.800 5.100 6.600 6.600l2.200-2.200c.3-.3.7-.4 1-.2 1.100.4 2.300.6 3.600.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.600 21 3 13.400 3 4c0-.6.4-1 1-1h3.500c.6 0 1 .4 1 1 0 1.300.2 2.500.6 3.600.1.300 0 .700-.2 1l-2.300 2.200z"/></svg>',
+ msg:SVH+'<defs><linearGradient id="gm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#eefbee"/></linearGradient></defs><ellipse cx="30" cy="27" rx="21" ry="16.500" fill="url(#gm)"/><path d="M13 37c.5 4-1.500 7-5 8.500 5 .5 10-1 14-4.500z" fill="#f5fdf5"/></svg>',
+ kakao:SVH+'<ellipse cx="30" cy="27" rx="23.500" ry="16.500" fill="#3b1e1e"/><path d="M19 38l-4 12 15-9z" fill="#3b1e1e"/><text x="30" y="32.500" text-anchor="middle" font-family="Arial Black,Helvetica,Arial,sans-serif" font-weight="900" font-size="15.500" fill="#fadf00" textLength="32" lengthAdjust="spacingAndGlyphs">TALK</text></svg>',
+ music:SVH+'<defs><linearGradient id="gn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#f9dbe2"/></linearGradient></defs><g fill="url(#gn)"><polygon points="22.500,14.500 44.600,9.200 44.600,18.200 22.500,23.500"/><rect x="22.500" y="15" width="3.600" height="26"/><rect x="41" y="11" width="3.600" height="26"/><ellipse cx="19.500" cy="41.500" rx="7.500" ry="5.800" transform="rotate(-22 19.500 41.500)"/><ellipse cx="38" cy="37.500" rx="7.500" ry="5.800" transform="rotate(-22 38 37.500)"/></g></svg>',
+ youtube:SVH+'<defs><linearGradient id="gy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f35568"/><stop offset="1" stop-color="#e83446"/></linearGradient></defs><rect x="9" y="16.500" width="42" height="27" rx="8" fill="url(#gy)"/><path d="M26 23.500v13l11-6.500z" fill="#fff"/></svg>',
+ safari:SVH+'<defs><linearGradient id="gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4cb8ff"/><stop offset="1" stop-color="#1668e8"/></linearGradient></defs><circle cx="30" cy="30" r="22.500" fill="url(#gs)"/><g stroke="#fff" stroke-width=".7" opacity=".85">'+TK+'</g><g transform="rotate(45 30 30)"><path d="M30 10l-5 20h10z" fill="#ff453a"/><path d="M30 50l-5-20h10z" fill="#fff"/></g><circle cx="30" cy="30" r="2.200" fill="#ff8a80"/></svg>',
+ camera:SVH+'<defs><radialGradient id="gc2" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#7d93d1"/><stop offset=".5" stop-color="#26305e"/><stop offset="1" stop-color="#0a0c18"/></radialGradient></defs><circle cx="30" cy="30" r="23" fill="#505054"/><circle cx="30" cy="30" r="20.500" fill="#17171a"/><circle cx="30" cy="30" r="17.500" fill="url(#gc2)"/><ellipse cx="30" cy="22" rx="5.500" ry="3" fill="#fff" opacity=".75"/><path d="M19 36q11 10 22 0q-3 8-11 8t-11-8z" fill="#6f86d8" opacity=".5"/></svg>',
+ photos:SVH+PET+'</svg>',
+ memo:SVH+MEMO+'</svg>',
+ settings:SVH+GEAR+'</svg>',
+ appstore:SVH+'<g stroke="#fff" stroke-linecap="round" stroke-opacity=".92" fill="none"><path d="M17.500 44L34.500 13" stroke-width="5.200"/><path d="M42.500 44L25.500 13" stroke-width="5.200"/><path d="M14.500 36.500H45.500" stroke-width="4.400"/></g></svg>'};
+const ZOOM={phone:1.23,msg:1.17,kakao:1.1,music:1.18,youtube:1.2,safari:1.17,camera:1.12,photos:1.18,settings:1.15,appstore:1.15};
+for(const k in ZOOM){SV[k]=SV[k].replace(/(<svg[^>]*>)([\s\S]*)<\/svg>$/,(m,a,b)=>`${a}<g transform="translate(30 30) scale(${ZOOM[k]}) translate(-30 -30)">${b}</g></svg>`)}
+const icons={
+ cal:["캘린더","linear-gradient(#fff,#f1f1f3)",`<span class="calic" style="display:block">${calSvg()}</span>`],photos:["사진","linear-gradient(#fff,#f0f0f2)",SV.photos],some:["썸원","#ff6b8b","💕"],music:["음악","linear-gradient(#f4566c,#e6303f)",SV.music],
+ phone:["전화","linear-gradient(#86ee7e,#58d65a)",SV.phone],msg:["문자","linear-gradient(#80ea7a,#55d45e)",SV.msg],kakao:["카카오톡","linear-gradient(#ffe94d,#f8d600)",SV.kakao],youtube:["YouTube","linear-gradient(#fff,#efeff1)",SV.youtube],safari:["Safari","linear-gradient(#fff,#eeeef0)",SV.safari],camera:["카메라","linear-gradient(#f2f2f3,#c9c9cc)",SV.camera],memo:["메모","linear-gradient(#fff,#f0f0f1)",SV.memo],clock:["시계","linear-gradient(#fff,#eeeeef)",`<span class="clkic" style="display:block">${clockSvg()}</span>`],settings:["설정","linear-gradient(#9b9ba0,#6e6e73)",SV.settings],appstore:["App Store","linear-gradient(#2fa4fb,#1a5ff0)",SV.appstore],insta:["Instagram","linear-gradient(45deg,#f9a03c,#e1306c,#833ab4)",'<svg viewBox="0 0 48 48" width="34" height="34"><rect x="4" y="4" width="40" height="40" rx="13" fill="none" stroke="#fff" stroke-width="3.2"/><circle cx="24" cy="24" r="10" fill="none" stroke="#fff" stroke-width="3.2"/><circle cx="35" cy="13" r="2.3" fill="#fff"/></svg>']};
+const mk=k=>`<div class="ic" onclick="openApp('${k}',this.querySelector('i'))"><i style="background:${icons[k][1]}">${icons[k][2]}</i>${$('#dock').contains?'':''}<span>${icons[k][0]}</span></div>`;
+$('#grid').innerHTML=['cal','photos','some','music'].map(mk).join('')+
+ `<div class="ic fold"><i><b style="background:#111"></b><b style="background:#6a3df0"></b><b style="background:#ffd23f"></b><b style="background:#ff7a1a"></b></i><span>쇼핑</span></div>`+['youtube','safari','camera','memo','clock','settings','appstore'].map(mk).join('');
+$('#dock').innerHTML=['phone','msg','kakao','insta'].map(k=>mk(k).replace(/<span>.*?<\/span>/,'')).join('');
+
+const IGME='jaewonn0619.k';
+const PF=s=>`<div class="pf" style="width:${s}px;height:${s}px"></div>`;
+const IGDATA={stories:[['민지야놀자',1,'17시간'],['soo_young99',0,'9시간'],['daily.jh',0,'1일'],['hana_log',0,'2일'],['yoon.archive',0,'2일']],
+ posts:[['user_minji','오늘 하루도 기록 ✨',['오 분위기 좋다','나도 가고싶다']],['user_sooyoung','맛집 발견 🍜',['여기 어디예요?','저장했어요']],['user_daily','오랜만에 산책',['날씨 진짜 좋다','댕댕이 귀여워']],['user_hana','새로운 취미 시작',['화이팅!!','나도 해보고싶어']],['user_yoon','주말 브이로그',['꿀잼ㅋㅋ','다음편 기대']],['user_cafe','카페에서 ☕',['분위기 좋다','위치 공유 가능?']]],
+ /* DM 목록: [이름, 미리보기, 시간, 스토리링(1이면 표시)] */
+ dms:[['bsu_brothe','닫앗니 설마?','3주',0],['김수연','회원님의 스토리에 답장을 보냈습니다: 아랑해요종익ㅋㅋㅋ','6주',0],['전여진','누군가 스토리에 회원님을 태그했습니다','11주',0],['양경희','전송됨','',0],['익산고등학교 밴드부 BEYOND/비욘드','누군가 스토리에 회원님을 태그했습니다','15주',0],['홍버즈','전송됨','',1],['정다은','Automation powered by @Manychat 🐙','22주',1],
+  /* 아래는 눌러도 안 열리는 채팅방(마지막 값 1) */
+  ['지민','ㅋㅋㅋㅋ 알겠어','24주',0,1],['이서준','전송됨','',0,1],['박소율','사진을 보냈습니다','28주',0,1],['최민호','누군가 스토리에 회원님을 태그했습니다','31주',0,1],['한유나','회원님의 스토리에 답장을 보냈습니다: 헐 대박','35주',0,1],['오태윤','전송됨','',0,1],['윤채원','릴스를 보냈습니다','43주',0,1]]};
+const IG={tab:'home',story:null,dm:null,liked:new Set(),storyLiked:new Set(),cmt:null};
+function igOpen(fn){fn();ap.innerHTML=igMain()}
+function igStoryFace(i,live,frozenPct){const s=IGDATA.stories[i];
+ const prog=live?`<div id="storyfill" style="height:100%;background:#fff;width:0;animation:igfill 4s linear forwards" onanimationend="igStoryNext()"></div>`:`<div style="height:100%;background:#fff;width:${frozenPct||'0%'}"></div>`;
+ return `<div style="position:absolute;inset:0;background:linear-gradient(160deg,${s[1]?'#1c5':'#8134af'},#222)">
+  <div style="position:absolute;top:50px;left:10px;right:10px;height:2.5px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden;z-index:2">${prog}</div>
+  <div style="position:absolute;top:60px;left:14px;right:14px;display:flex;align-items:center;gap:8px;color:#fff;z-index:2">
+   <div class="pf" style="width:30px;height:30px;border:1px solid rgba(255,255,255,.4)"></div>
+   <b style="font-size:14px">${s[0]}</b><span style="font-size:13px;color:rgba(255,255,255,.75)">${s[2]}</span>
+   <div style="flex:1"></div>
+   ${s[1]?'<div style="display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.15);padding:3px 8px 3px 6px;border-radius:14px;font-size:12px"><span style="color:#3ad37d">★</span>친한친구 ⌄</div>':''}
+   <span style="font-size:19px">≡</span>
+   <span${live?' onclick="igOpen(()=>IG.story=null)"':''} style="font-size:22px;cursor:pointer;padding:4px">✕</span>
+  </div>
+  <div style="position:absolute;left:14px;right:14px;bottom:28px;display:flex;align-items:center;gap:14px;z-index:2">
+   <div style="flex:1;border:1px solid rgba(255,255,255,.6);border-radius:22px;padding:10px 16px;color:rgba(255,255,255,.75);font-size:14px">메시지 보내기...</div>
+   <span${live?` onclick="igStoryLike(${i})"`:''} style="font-size:24px;cursor:pointer;color:${IG.storyLiked.has(i)?'#ed4956':'#fff'}">${IG.storyLiked.has(i)?'♥':'♡'}</span>
+  </div>
+ </div>`}
+function igStorySlide(dir,fn){const nextI=IG.story+dir;
+ if(nextI<0)return;
+ if(nextI>=IGDATA.stories.length){igOpen(()=>IG.story=null);return}
+ const box=document.getElementById('storybox');if(!box){fn();igOpen(()=>{});return}
+ const half=196.5,curI=IG.story;
+ const fillEl=document.getElementById('storyfill');let curPct='0%';
+ if(fillEl){const pw=fillEl.parentElement.getBoundingClientRect().width;curPct=(parseFloat(getComputedStyle(fillEl).width)/pw*100)+'%'}
+ const sideT=dir>0?`rotateY(90deg) translateZ(${half}px)`:`rotateY(-90deg) translateZ(${half}px)`;
+ box.innerHTML=`<div id="cube" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .62s cubic-bezier(.4,.05,.2,1);transform:rotateY(0deg)">
+  <div style="position:absolute;inset:0;backface-visibility:hidden;transform:translateZ(${half}px)">${igStoryFace(curI,false,curPct)}</div>
+  <div style="position:absolute;inset:0;backface-visibility:hidden;transform:${sideT}">${igStoryFace(nextI,false)}</div>
+ </div>`;
+ const cube=document.getElementById('cube');cube.getBoundingClientRect();
+ requestAnimationFrame(()=>{cube.style.transform=`rotateY(${dir>0?-90:90}deg)`});
+ setTimeout(()=>{fn();ap.innerHTML=igMain()},620)}
+function igStoryNext(){if(IG.story==null)return;igStorySlide(1,()=>{IG.story++})}
+function igStoryPrev(){if(IG.story==null)return;igStorySlide(-1,()=>{IG.story--})}
+function igStoryLike(i){IG.storyLiked.has(i)?IG.storyLiked.delete(i):IG.storyLiked.add(i);igOpen(()=>{})}
+function igLike(i){IG.liked.has(i)?IG.liked.delete(i):IG.liked.add(i);igOpen(()=>{})}
+const ICN={home:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10.5V20a1 1 0 0 0 1 1h3v-6h4v6h3a1 1 0 0 0 1-1v-9.5"/></svg>',
+ reels:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="6"/><path d="M10 8.3v7.4l6.2-3.7-6.2-3.7z" fill="#111" stroke="none"/></svg>',
+ dm:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3 2.5 10.7c-.8.3-.8 1.4 0 1.7l6.9 2.7 2.7 6.9c.3.8 1.4.8 1.7 0L22 3z"/><path d="M22 3 9.5 15.4"/></svg>',
+ dmOn:'<svg viewBox="0 0 24 24" width="24" height="24" fill="#111" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3 2.5 10.7c-.8.3-.8 1.4 0 1.7l6.9 2.7 2.7 6.9c.3.8 1.4.8 1.7 0L22 3z"/><path d="M22 3 9.5 15.4" stroke="#aaa"/></svg>',
+ search:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+ profile:PF(30)};
+function igNav(){const order=['home','reels','dm','search','profile'],idx=order.indexOf(IG.tab),start=IG.from!=null?IG.from:idx;IG.from=null;
+ const cell=k=>`<div${k=='reels'||k=='search'?'':` onclick="igTab('${k}')"`} style="flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;cursor:${k=='reels'||k=='search'?'default':'pointer'};opacity:${k==IG.tab||k=='profile'?1:.7}">${k=='dm'&&IG.tab=='dm'?ICN.dmOn:ICN[k]}</div>`;
+ return `<div style="position:absolute;left:22px;right:22px;bottom:22px;height:58px;border-radius:30px;background:rgba(200,200,204,.88);backdrop-filter:blur(14px);border:1px solid rgba(60,60,67,.45);box-sizing:border-box;padding:0 5px;display:flex;align-items:center;z-index:5;overflow:hidden">
+  <div id="igpill" style="position:absolute;top:3px;left:5px;width:calc((100% - 10px)/5);height:50px;border-radius:26px;background:rgba(150,150,154,.55);transition:transform .38s cubic-bezier(.3,.9,.3,1);transform:translateX(${start*100}%);z-index:1"></div>
+  ${order.map(cell).join('')}
+ </div>`}
+function igTab(k){const order=['home','reels','dm','search','profile'];if(IG.tab==k)return;IG.from=order.indexOf(IG.tab);IG.tab=k;ap.innerHTML=igMain();const p=document.getElementById('igpill');if(p){p.getBoundingClientRect();p.style.transform=`translateX(${order.indexOf(k)*100}%)`}}
+function igHome(){let h=`<div style="padding:54px 16px 6px;font-weight:700;font-size:26px">Instagram</div><div style="display:flex;gap:12px;padding:4px 14px 12px;overflow-x:auto">`;
+ h+=`<div style="text-align:center;font-size:12px;flex:none;width:80px;white-space:nowrap"><div style="position:relative;width:80px;height:80px;margin:0 auto 4px">${PF(80)}<div style="position:absolute;right:0;bottom:0;width:26px;height:26px;border-radius:50%;background:#3797f0;border:2px solid #fff;color:#fff;font-size:19px;line-height:22px;font-weight:700;text-align:center;box-sizing:border-box">+</div></div>내 스토리</div>`;
+ h+=IGDATA.stories.map((s,i)=>`<div style="text-align:center;font-size:12px;flex:none;cursor:pointer;width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" onclick="igOpen(()=>IG.story=${i})"><div style="width:80px;height:80px;margin-bottom:4px;border-radius:50%;background:${s[1]?'#3ad37d':'conic-gradient(from 180deg,#f9a03c,#dd2a7b,#8134af,#f9a03c)'};display:flex;align-items:center;justify-content:center;flex:none;margin:0 auto"><div style="width:74px;height:74px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center">${PF(68)}</div></div>${s[0]}</div>`).join('');
+ h+=`</div>`+IGDATA.posts.map((p,i)=>`<div style="border-top:8px solid #f3f3f3"><div class="row" style="border:none">${PF(38)}<div style="flex:1;font-weight:600">${p[0]}</div></div><div style="height:230px;background:linear-gradient(135deg,#dde3ee,#c8cfe0)"></div><div style="padding:8px 14px 0;display:flex;gap:14px"><span onclick="igLike(${i})" style="cursor:pointer;font-size:21px;color:${IG.liked.has(i)?'#ed4956':'#111'}">${IG.liked.has(i)?'♥':'♡'}</span><span onclick="igOpen(()=>IG.cmt=${i})" style="cursor:pointer;font-size:19px">💬</span></div><div style="padding:4px 14px 14px;font-size:14px"><b>${p[0]}</b> ${p[1]}</div></div>`).join('')+`<div style="height:90px"></div>`;
+ return `<div class="scr">${h}</div>`}
+function igDm(){
+ const bars='<svg width="13" height="12" viewBox="0 0 13 12" fill="#111"><rect x="0" y="4" width="2.600" height="8" rx="1.300"/><rect x="5" y="0" width="2.600" height="12" rx="1.300"/><rect x="10" y="3" width="2.600" height="6" rx="1.300"/></svg>';
+ const globe='<svg width="82" height="82" viewBox="0 0 82 82" style="display:block;margin:-2px auto 0"><defs><clipPath id="gc"><circle cx="41" cy="41" r="41"/></clipPath></defs><g clip-path="url(#gc)"><rect width="82" height="82" fill="#86b6e0"/><path d="M8 14q14-8 28 0t4 16q-12 6-20 2T8 14zM40 34q14-6 26 4t8 24q-10 10-20 8T40 34zM14 44q10-4 14 6t-4 22q-8-4-10-28z" fill="#a9cf8a"/><circle cx="22" cy="10" r="9" fill="#eef2f4"/></g></svg>';
+ const plane='<svg width="13" height="13" viewBox="0 0 24 24" fill="#ff3b30" style="vertical-align:-2px;margin-right:2px"><path d="M3 11l18-8-8 18-2-8z"/></svg>';
+ const notes=`<div style="display:flex;padding:16px 0 0 1px;margin-bottom:-2px">
+  <div class="nt"><div class="nb" style="bottom:100%">오늘의 분위기...</div>${PF(78).replace('style="','style="margin:0 auto;')}<div class="nl">내 메모</div><div class="nl" style="margin-top:0;font-size:12px;font-weight:700;color:#111;line-height:16px">${plane}위치 해제됨</div></div>
+  <div class="nt"><div class="nb" style="bottom:calc(100% - 16px);height:31px;padding-top:0"><div style="display:flex;align-items:center;gap:5px;color:#111;font-weight:700">${bars}<span>But…</span><span style="background:#111;color:#fff;font-size:9px;line-height:12px;width:12px;border-radius:3px;text-align:center">E</span></div><div>ARTAN, Spe…</div></div>${PF(78).replace('style="','style="margin:0 auto;')}<div class="nl" style="color:#111;font-size:15px">eunyo</div></div>
+  <div class="nt">${globe}<div class="nl" style="color:#111;font-size:15px;margin-top:6px">지도</div></div>
+ </div>`;
+ const row=(d,i)=>{const av=d[3]?`<div style="width:66px;height:66px;margin:0 -5px;border-radius:50%;background:linear-gradient(45deg,#f9a03c,#dd2a7b,#8134af);display:flex;align-items:center;justify-content:center;flex:none"><div style="width:62px;height:62px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center">${PF(56)}</div></div>`:PF(56);
+  return `<div class="dmr"${d[4]?' style="cursor:default"':` onclick="igOpen(()=>IG.dm=${i})"`}>${av}<div style="flex:1;min-width:0"><div style="font-size:16px;line-height:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d[0]}</div><div class="dms"><span>${d[1]}</span>${d[2]?`<span>&nbsp;· ${d[2]}</span>`:''}</div></div></div>`};
+ return `<div style="position:relative;padding-top:66px;height:34px;flex:none;display:flex;align-items:center;justify-content:center;gap:5px;font-weight:700;font-size:22px">${IGME}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-top:3px"><path d="M5 9l7 7 7-7"/></svg><svg style="position:absolute;right:19px;top:70px" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H6a3 3 0 00-3 3v11a3 3 0 003 3h11a3 3 0 003-3v-5"/><path d="M18.500 2.500a2.100 2.100 0 013 3L12 15l-4 1 1-4z"/></svg></div>
+ <div class="scr" style="padding-bottom:100px"><div style="margin:17px 14px 0;height:44px;border-radius:22px;background:#eff0f3;display:flex;align-items:center;gap:10px;padding:0 14px;color:#737880;font-size:17px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#737880" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>검색</div>
+ ${notes}<div style="display:flex;justify-content:space-between;padding:10px 21px 10px 16px;font-size:18px;font-weight:700;line-height:24px">메시지<span style="font-weight:400;font-size:15px;color:#737880">요청</span></div>
+ ${IGDATA.dms.map(row).join('')}</div>`}
+function igDmChat(i){return `<div style="padding:56px 14px 10px;font-weight:700;font-size:17px;cursor:pointer;display:flex;align-items:center;gap:10px" onclick="igOpen(()=>IG.dm=null)">‹ ${PF(32)} ${IGDATA.dms[i][0]}</div><div class="scr" style="display:flex;flex-direction:column;padding:0 4px"><div class="bub ot" style="background:#efefef">안녕!</div><div class="bub me" style="background:#3797f0;color:#fff;align-self:flex-end">ㅎㅇㅎㅇ 잘지내?</div></div>`}
+function igProfile(){return `<div class="top">${IGME}</div><div class="scr"><div style="display:flex;align-items:center;gap:26px;padding:0 18px 14px">${PF(80)}<div style="display:flex;flex:1;justify-content:space-around;text-align:center"><div><b style="font-size:17px">0</b><br><span style="font-size:13px;color:#555">게시물</span></div><div><b style="font-size:17px">283</b><br><span style="font-size:13px;color:#555">팔로워</span></div><div><b style="font-size:17px">240</b><br><span style="font-size:13px;color:#555">팔로잉</span></div></div></div><div style="display:flex;gap:8px;padding:0 18px 14px"><div style="flex:1;background:#efefef;border-radius:8px;padding:7px;text-align:center;font-weight:600;font-size:13px">프로필 편집</div><div style="flex:1;background:#efefef;border-radius:8px;padding:7px;text-align:center;font-weight:600;font-size:13px">프로필 공유</div></div><div style="border-top:1px solid #eee;height:220px;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:13px">게시물 없음</div></div>`}
+function igMain(){
+ if(IG.story!=null){
+  return `<div id="storybox" style="position:absolute;inset:0;overflow:hidden">
+   <div onclick="igStoryPrev()" style="position:absolute;top:0;bottom:0;left:0;width:30%;z-index:3"></div>
+   <div onclick="igStoryNext()" style="position:absolute;top:0;bottom:0;right:0;width:70%;z-index:3"></div>
+   ${igStoryFace(IG.story,true)}
+  </div>`}
+ let body=IG.dm!=null?igDmChat(IG.dm):IG.tab=='home'?igHome():IG.tab=='dm'?igDm():igProfile();
+ let cm='';
+ if(IG.cmt!=null){const p=IGDATA.posts[IG.cmt];
+  cm=`<div style="position:absolute;inset:0;background:#fff;z-index:9;display:flex;flex-direction:column"><div style="padding:56px 16px 16px;border-bottom:1px solid #eee;font-weight:700;text-align:center;position:relative">댓글<span onclick="igOpen(()=>IG.cmt=null)" style="position:absolute;right:16px;top:56px;cursor:pointer">✕</span></div><div class="scr">${p[2].map(c=>`<div class="row">${PF(36)}${c}</div>`).join('')}</div></div>`}
+ return `<div style="position:relative;height:100%;display:flex;flex-direction:column">${body}${IG.dm==null&&IG.story==null?igNav():''}${cm}</div>`}
+
+const PH_ARROW={out:'<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#8a8a8e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.500 9.500L9.500 2.500M4.500 2.500H9.500V7.500"/></svg>',in:'<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#8a8a8e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.500 2.500L2.500 9.500M2.500 4.500V9.500H7.500"/></svg>'};
+function phoneApp(){
+ const hs='<svg width="19" height="19" viewBox="0 0 24 24" fill="#2f7df6"><path d="M6.600 10.800c1.400 2.800 3.800 5.100 6.600 6.600l2.200-2.200c.3-.3.7-.4 1-.2 1.100.4 2.300.6 3.600.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.600 21 3 13.400 3 4c0-.6.4-1 1-1h3.500c.6 0 1 .4 1 1 0 1.300.2 2.500.6 3.600.1.300 0 .700-.2 1l-2.300 2.200z"/></svg>';
+ const rows=DATA.calls.map(c=>`<div class="pr"><div class="pcr"><div class="pav">${c[0].slice(-2)}</div><div style="margin-left:8px;flex:1;min-width:0"><div style="font-size:17px;line-height:20px;color:${c[4]?'#ff3b30':'#111'}">${c[0]}</div><div style="font-size:16px;line-height:19px;color:#8a8a8e;display:flex;align-items:center;gap:4px">${PH_ARROW[c[1]]}${c[2]}</div></div><div style="font-size:16px;color:#8a8a8e;margin-right:15px">${c[3]}</div><div class="pcb">${hs}</div></div></div>`).join('');
+ const hdr=`<div class="phh"><div class="phb" style="left:16px;width:62px;font-size:17px;font-weight:500">편집</div><div style="position:absolute;top:59px;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:600">통화</div><div class="phb" style="right:16px;width:44px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M6 12h12M9 18h6"/></svg></div></div>`;
+ const ti=(x,svg,label,col)=>`<div style="position:absolute;left:${x}px;top:10px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;font-size:12px;line-height:14px;color:${col}"><div style="height:24px;margin-bottom:3px">${svg}</div>${label}</div>`;
+ const clock='<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#2f7df6"/><path d="M13 6.500V12H8" fill="none" stroke="#fff" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+ const person='<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#111"/><circle cx="12" cy="9.500" r="4" fill="#fff"/><path d="M4.500 19.500c1.200-3.300 4-5 7.500-5s6.300 1.700 7.500 5a12 12 0 01-15 0z" fill="#fff"/></svg>';
+ const keypad='<svg width="26" height="26" viewBox="0 0 24 24" fill="#111" style="margin-top:-1px">'+[3,9,15,21].map(y=>[4,12,20].map(x=>`<circle cx="${x}" cy="${y}" r="2.600"/>`).join('')).join('')+'</svg>';
+ const tab=`<div class="ptab"><div style="position:absolute;left:21px;top:9px;width:281px;height:62px;border-radius:31px;background:#fff;border:1px solid #dcdce0;box-shadow:0 4px 14px rgba(0,0,0,.08);box-sizing:border-box"><div style="position:absolute;left:3px;top:4px;width:97px;height:53px;border-radius:27px;background:#ececee"></div>${ti(53,clock,'통화','#2f7df6')}${ti(140,person,'연락처','#111')}${ti(228,keypad,'키패드','#111')}<div style="position:absolute;left:61px;top:5px;min-width:22px;height:22px;border-radius:11px;background:#ff3b30;color:#fff;font-size:14px;font-weight:600;line-height:22px;text-align:center;box-sizing:border-box;padding:0 5px">14</div></div><div style="position:absolute;left:310px;top:9px;width:62px;height:62px;border-radius:50%;background:#fff;border:1px solid #dcdce0;box-shadow:0 4px 14px rgba(0,0,0,.08);box-sizing:border-box;display:flex;align-items:center;justify-content:center"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.400" stroke-linecap="round"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M20 20l-4.800-4.800"/></svg></div></div>`;
+ return hdr+`<div class="scr pscr">${rows}<div style="height:100px"></div></div>`+tab}
+const K={tab:'chat',room:null,coupon:null};
+const A={
+ phone:()=>phoneApp(),
+ kakao:()=>{
+  if(K.room!=null){const r=DATA.rooms[K.room];
+   return `<div style="background:#b2c7d9;flex:1;display:flex;flex-direction:column"><div style="padding:56px 14px 10px;font-weight:700;font-size:17px;cursor:pointer" onclick="go(()=>K.room=null)">‹ ${r.name}</div><div class="scr" style="display:flex;flex-direction:column;padding-bottom:10px">${r.msgs.map(m=>`<div class="bub ${m[0]?'me':'ot'}">${m[1]}</div>`).join('')}</div><div style="background:#fff;padding:10px 14px 30px;color:#aaa;font-size:14px">메시지 입력</div></div>`}
+  let body='';
+  if(K.tab=='chat')body=`<div class="top">채팅</div><div class="scr">${DATA.rooms.map((r,i)=>`<div class="row" onclick="go(()=>K.room=${i})"><div class="av">🙂</div><div style="flex:1"><div style="font-weight:600">${r.name}</div><div style="font-size:13px;color:#888">${r.msgs.at(-1)[1]}</div></div></div>`).join('')}</div>`;
+  else if(K.tab=='friends')body=`<div class="top">친구</div><div class="scr"><div class="row"><div class="av">🙂</div>내 프로필</div></div>`;
+  else body=`<div class="top">선물하기</div><div class="scr"><div style="padding:0 18px 4px;font-weight:600">주문내역 · 구매한 기프티콘</div>${DATA.gifts.map((g,i)=>`<div class="card" onclick="go(()=>K.coupon=K.coupon==${i}?null:${i})"><div class="av">${g[0]}</div><div style="flex:1"><div style="font-size:13px;color:#888">${g[1]}</div><div style="font-weight:600">${g[2]}</div><div style="font-size:12px;color:#888">유효기간 ${g[3]}</div>${K.coupon==i?`<div style="margin-top:10px;letter-spacing:3px;font-family:monospace">||| |||| || ||| ||||<br>1234 5678 9012</div>`:''}</div></div>`).join('')}</div>`;
+  const t=(k,n,e)=>`<div class="${K.tab==k?'on':''}" onclick="go(()=>K.tab='${k}')">${e}<br>${n}</div>`;
+  return body+`<div class="tabs">${t('friends','친구','👤')}${t('chat','채팅','💬')}${t('gift','선물하기','🎁')}</div>`},
+ cal:()=>{const y=2026,m=9,first=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate(),nw=new Date(),TD=(nw.getFullYear()==y&&nw.getMonth()==m)?nw.getDate():0;let c='';
+  for(let i=0;i<first;i++)c+='<span></span>';
+  for(let d=1;d<=n;d++){const k=`${y}-${m+1}-${String(d).padStart(2,'0')}`;c+=`<span class="${DATA.events[k]?'dot':''} ${d==TD?'today':''}">${d==TD?`<b>${d}</b>`:d}</span>`}
+  return `<div class="top" style="color:#ff3b30">2026년 10월</div><div class="cal" style="color:#888;font-size:13px">${'일월화수목금토'.split('').map(x=>`<span>${x}</span>`).join('')}</div><div class="cal">${c}</div><div class="scr" style="border-top:1px solid #eee;margin-top:6px">${Object.entries(DATA.events).map(([d,t])=>`<div class="row"><div style="color:#ff3b30;font-weight:600">${d.slice(5)}</div>${t}</div>`).join('')}</div>`},
+ insta:()=>igMain()
+};
+let ap=null,cur=null;
+function go(fn){fn();ap.innerHTML=A[cur]()}
+function toast(t){const e=$('#toast');e.textContent=t;e.style.opacity=1;setTimeout(()=>e.style.opacity=0,1500)}
+function openApp(id,el){
+ if(ap)return;
+ if(['msg','music','youtube','safari','camera','memo','clock','settings','appstore'].includes(id))return;
+ if(!A[id])return toast('다음 단계에서 만들어요');
+ const r=el.getBoundingClientRect(),p=phone.getBoundingClientRect(),s=p.width/393;
+ cur=id;ap=document.createElement('div');ap.className='app';
+ ap.style.transformOrigin=`${(r.left+r.width/2-p.left)/s}px ${(r.top+r.height/2-p.top)/s}px`;
+ ap.innerHTML=A[id]();phone.appendChild(ap);ap.offsetWidth;ap.classList.add('open');phone.style.setProperty('--sb','#000');
+}
+function closeApp(){if(!ap)return;const a=ap;ap=null;a.classList.remove('open');phone.style.setProperty('--sb','#fff');setTimeout(()=>a.remove(),350)}
+function fit(){const s=Math.min((innerHeight-40)/852,(innerWidth-40)/393,1.3);phone.style.transform=`scale(${s})`}
+addEventListener('resize',fit);fit();
+/* ===== 잠금화면 ===== */
+const PIN='0205',START=new Date('2026-08-18T11:59:51+09:00'),WALL=''; /* WALL에 배경사진 주소를 넣으면 적용 */
+if(WALL)phone.style.setProperty('--wp',`url(${WALL}) center/cover`);
+const WIFI='<svg width="17" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.500 4.500a10 10 0 0114 0M4.300 7.600a6 6 0 018.400 0"/><circle cx="8.500" cy="11" r="1.200" fill="currentColor" stroke="none"/></svg>',SIG='<svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect y="8" width="3" height="4" rx="1"/><rect x="5" y="5.500" width="3" height="6.500" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" width="3" height="12" rx="1" opacity=".4"/></svg>',BAT='<span class="batt"><i style="width:62%"></i><b>62</b></span>';
+document.querySelectorAll('.rt').forEach(e=>e.innerHTML=(e.dataset.r=='1'?SIG:'')+WIFI+BAT);
+const p2=n=>String(n).padStart(2,'0'),di=$('#di'),lock=$('#lock'),pass=$('#pass');
+function tick(){const d=new Date();document.querySelectorAll('.calic').forEach(e=>e.innerHTML=calSvg());document.querySelectorAll('.clkic').forEach(e=>e.innerHTML=clockSvg());document.querySelectorAll('.clk').forEach(e=>e.textContent=d.getHours()+':'+p2(d.getMinutes()));
+ $('#ldate').textContent=`${d.getMonth()+1}월 ${d.getDate()}일 (${'일월화수목금토'[d.getDay()]})`;
+ const s=Math.max(0,Math.floor((d-START)/1000));$('#lcnt').textContent=[Math.floor(s/86400),p2(Math.floor(s%86400/3600)),p2(Math.floor(s%3600/60)),p2(s%60)].join(':')}
+setInterval(tick,1000);tick();
+let state='lock',code='',busy=false,sy=0,dy=0,drag=false;
+const sc=()=>phone.getBoundingClientRect().width/393;
+function prog(y){lock.style.transform=`translateY(${-y}px)`;pass.style.setProperty('--p',Math.min(1,y/260))}
+lock.addEventListener('pointerdown',e=>{if(state!='lock')return;drag=true;sy=e.clientY;dy=0;lock.setPointerCapture(e.pointerId);lock.style.transition='none'});
+lock.addEventListener('pointermove',e=>{if(!drag)return;dy=Math.max(0,(sy-e.clientY)/sc());prog(dy)});
+lock.addEventListener('pointerup',e=>{if(!drag)return;drag=false;lock.style.transition='';
+ if(dy>110||(dy<8&&e.target.id=='lbar'))openPass();else{lock.style.transform='none';pass.style.setProperty('--p',0)}});
+function openPass(){state='pass';lock.style.transform='translateY(-100%)';pass.style.setProperty('--p',1);di.classList.add('wide')}
+
+function closePass(){
+  if(state !== 'pass' || busy) return;
+
+  // 입력한 숫자가 있으면 마지막 숫자 하나 삭제
+  if(code.length > 0){
+    code = code.slice(0, -1);
+    dots();
+    return;
+  }
+
+  // 입력한 숫자가 없으면 잠금화면 첫 화면으로 돌아가기
+  state = 'lock';
+  lock.style.transform = 'none';
+  pass.style.setProperty('--p', 0);
+  di.classList.remove('wide');
+}
+function dots(){$('#dots').innerHTML=[0,1,2,3].map(i=>`<i class="${i<code.length?'f':''}"></i>`).join('')}
+const L=['','ABC','DEF','GHI','JKL','MNO','PQRS','TUV','WXYZ'];
+$('#keys').innerHTML=[1,2,3,4,5,6,7,8,9,0].map(n=>`<div class="k" data-n="${n}"${n?'':' style="grid-column:2"'}>${n}${n?`<small>${L[n-1]}</small>`:''}</div>`).join('');
+$('#keys').addEventListener('pointerdown',e=>{const k=e.target.closest('.k');if(!k)return;k.classList.add('on');press(k.dataset.n)});
+['pointerup','pointercancel'].forEach(t=>document.addEventListener(t,()=>document.querySelectorAll('.k.on').forEach(x=>x.classList.remove('on'))));
+document.addEventListener('keydown',e=>{if(/^\d$/.test(e.key))press(e.key)});
+function press(n){if(state!='pass'||busy||code.length>=4)return;code+=n;dots();if(code.length==4){busy=true;setTimeout(()=>code==PIN?unlock():wrong(),220)}}
+function wrong(){const d=$('#dots');d.classList.add('shake');d.addEventListener('animationend',()=>{d.classList.remove('shake');code='';dots();busy=false},{once:true})}
+function unlock(){state='home';phone.classList.add('in');di.classList.remove('wide');pass.style.transition='opacity .45s';pass.style.opacity=0;pass.style.pointerEvents='none';setTimeout(()=>{pass.style.display='none';lock.style.display='none'},500)}
+dots();
+</script></body></html>
