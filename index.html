@@ -221,7 +221,23 @@ lock.addEventListener('pointermove',e=>{if(!drag)return;dy=Math.max(0,(sy-e.clie
 lock.addEventListener('pointerup',e=>{if(!drag)return;drag=false;lock.style.transition='';
  if(dy>110||(dy<8&&e.target.id=='lbar'))openPass();else{lock.style.transform='none';pass.style.setProperty('--p',0)}});
 function openPass(){state='pass';lock.style.transform='translateY(-100%)';pass.style.setProperty('--p',1);di.classList.add('wide')}
-function closePass(){if(state!='pass'||busy)return;state='lock';code='';dots();lock.style.transform='none';pass.style.setProperty('--p',0);di.classList.remove('wide')}
+
+function closePass(){
+  if(state !== 'pass' || busy) return;
+
+  // 입력한 숫자가 있으면 마지막 숫자 하나 삭제
+  if(code.length > 0){
+    code = code.slice(0, -1);
+    dots();
+    return;
+  }
+
+  // 입력한 숫자가 없으면 잠금화면 첫 화면으로 돌아가기
+  state = 'lock';
+  lock.style.transform = 'none';
+  pass.style.setProperty('--p', 0);
+  di.classList.remove('wide');
+}
 function dots(){$('#dots').innerHTML=[0,1,2,3].map(i=>`<i class="${i<code.length?'f':''}"></i>`).join('')}
 const L=['','ABC','DEF','GHI','JKL','MNO','PQRS','TUV','WXYZ'];
 $('#keys').innerHTML=[1,2,3,4,5,6,7,8,9,0].map(n=>`<div class="k" data-n="${n}"${n?'':' style="grid-column:2"'}>${n}${n?`<small>${L[n-1]}</small>`:''}</div>`).join('');
